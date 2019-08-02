@@ -157,6 +157,11 @@ class Parser {
           print("Malformed HTML");
           return;
         }
+
+        if (event.name == "p"){
+          spans.add(TextSpan(text: "\n"));
+        }
+        
       }
 
       if (event is xmle.XmlTextEvent) {
@@ -166,6 +171,11 @@ class Parser {
         }
       }
     });
+
+    TextSpan last = spans.last;
+    if (last.text == "\n"){
+      spans.removeLast();
+    }
 
     return spans;
   }
